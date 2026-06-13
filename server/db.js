@@ -27,7 +27,7 @@ export function getTasksByDate(date) {
   const db = readDB();
   return db.tasks
     .filter((t) => t.date === date)
-    .sort((a, b) => a.completed - b.completed || b.id - a.id);
+    .sort((a, b) => a.completed - b.completed || a.title.localeCompare(b.title, 'zh-CN'));
 }
 
 export function getTaskById(id) {
