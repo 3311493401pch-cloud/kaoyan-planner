@@ -69,6 +69,15 @@ export default function App() {
     }
   };
 
+  const handleEdit = async (task, newTitle) => {
+    try {
+      await updateTask(task.id, { title: newTitle });
+      await loadTasks(selectedDate);
+    } catch (e) {
+      setError('修改任务失败: ' + e.message);
+    }
+  };
+
   const handleCopy = async (taskIds, targetDates) => {
     try {
       await copyTasks(taskIds, targetDates);
@@ -115,6 +124,7 @@ export default function App() {
           onToggle={handleToggle}
           onDelete={handleDelete}
           onPostpone={handlePostpone}
+          onEdit={handleEdit}
         />
       )}
 

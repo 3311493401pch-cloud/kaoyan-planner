@@ -1,4 +1,6 @@
-export default function TaskList({ tasks, onToggle, onDelete, onPostpone }) {
+import { useState, useRef, useEffect } from 'react';
+
+export default function TaskList({ tasks, onToggle, onDelete, onPostpone, onEdit }) {
   if (tasks.length === 0) {
     return (
       <div className="empty-state">
@@ -20,6 +22,7 @@ export default function TaskList({ tasks, onToggle, onDelete, onPostpone }) {
           onToggle={onToggle}
           onDelete={onDelete}
           onPostpone={onPostpone}
+          onEdit={onEdit}
         />
       ))}
 
@@ -35,6 +38,7 @@ export default function TaskList({ tasks, onToggle, onDelete, onPostpone }) {
               onToggle={onToggle}
               onDelete={onDelete}
               onPostpone={onPostpone}
+              onEdit={onEdit}
             />
           ))}
         </>
@@ -43,7 +47,33 @@ export default function TaskList({ tasks, onToggle, onDelete, onPostpone }) {
   );
 }
 
-function TaskItem({ task, onToggle, onDelete, onPostpone }) {
+function TaskItem({ task, onToggle, onDelete, onPostpone, onEdit }) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(task.title);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (editing && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [editing]);
+
+  const commit = () => {
+    const trimmed = draft.trim();
+    if (trimmed && trimmed !== task.title) {
+      onEdit(task, trimmed);
+    } else {
+      setDraft(task.title);
+    }
+    setEditing(false);
+  };
+
+  const cancel = () => {
+    setDraft(task.title);
+    setEditing(false);
+  };
+
   return (
     <div className={`task-item ${task.completed ? 'completed' : ''}`}>
       <button
@@ -54,10 +84,26 @@ function TaskItem({ task, onToggle, onDelete, onPostpone }) {
         {task.completed ? '✔' : ''}
       </button>
 
-      <span className="task-title">{task.title}</span>
+      {editing ? (
+        <input
+          ref={inputRef}
+          className="task-edit-input"
+          value={draft}
+          onChange={(e) => setDraft(e.target.value)}
+          onBlur={commit}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') commit();
+            if (e.key === 'Escape') cancel();
+          }}
+        />
+      ) : (
+        <span className="task-title" onClick={() => setEditing(true)} title="点击编辑">
+          {task.title}
+        </span>
+      )}
 
       <div className="task-actions">
-        {!task.completed && (
+        {!task.completed && !editing && (
           <button
             className="btn btn-sm btn-ghost"
             onClick={() => onPostpone(task)}
@@ -66,13 +112,15 @@ function TaskItem({ task, onToggle, onDelete, onPostpone }) {
             ⏭ 推迟
           </button>
         )}
-        <button
-          className="btn btn-sm btn-ghost btn-danger"
-          onClick={() => onDelete(task)}
-          title="删除任务"
-        >
-          🗑
-        </button>
+        {!editing && (
+          <button
+            className="btn btn-sm btn-ghost btn-danger"
+            onClick={() => onDelete(task)}
+            title="删除任务"
+          >
+            🗑
+          </button>
+        )}
       </div>
     </div>
   );

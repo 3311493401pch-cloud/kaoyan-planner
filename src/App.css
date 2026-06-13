@@ -321,6 +321,23 @@ body {
   flex: 1;
   font-size: 15px;
   word-break: break-word;
+  cursor: pointer;
+}
+
+.task-title:hover {
+  color: var(--primary);
+}
+
+.task-edit-input {
+  flex: 1;
+  border: 2px solid var(--primary);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 15px;
+  font-family: inherit;
+  background: var(--card);
+  color: var(--text);
+  outline: none;
 }
 
 .task-item.completed .task-title {
