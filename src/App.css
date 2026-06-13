@@ -1,0 +1,563 @@
+/* ── Reset & Base ─────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #f5f0eb;
+  --card: #ffffff;
+  --text: #2c2c2c;
+  --text-dim: #888;
+  --primary: #4a7c59;
+  --primary-hover: #3d6a4b;
+  --danger: #d35d5d;
+  --danger-hover: #c44a4a;
+  --border: #e0d9d1;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+#root {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px 24px 60px;
+}
+
+/* ── App Header ───────────────────────────────────────────────────────── */
+.app-header {
+  text-align: center;
+  padding: 24px 0 8px;
+}
+
+.app-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.app-header .subtitle {
+  color: var(--text-dim);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* ── Countdown ────────────────────────────────────────────────────────── */
+.countdown {
+  text-align: center;
+  padding: 8px 0 4px;
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+.countdown strong {
+  color: var(--text);
+}
+
+.countdown-num {
+  display: inline-block;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: 20px;
+  min-width: 40px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin: 0 2px;
+  vertical-align: -1px;
+}
+
+/* ── Date Navigation ──────────────────────────────────────────────────── */
+.date-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 0;
+}
+
+.date-center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  justify-content: center;
+}
+
+.date-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.date-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.5px;
+  user-select: none;
+}
+
+/* Hide the native date picker but keep it clickable */
+.date-picker-hidden {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn-today {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 16px;
+  padding: 5px 14px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-today:hover {
+  background: var(--primary-hover);
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 8px 16px;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.btn-outline:hover:not(:disabled) {
+  background: var(--border);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-dim);
+  padding: 4px 8px;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.btn-danger:hover:not(:disabled) {
+  color: var(--danger);
+}
+
+.btn-icon {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon:hover {
+  background: var(--border);
+}
+
+.btn-sm {
+  font-size: 12px;
+  padding: 4px 10px;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.btn-link:hover {
+  color: var(--primary-hover);
+}
+
+/* ── Add Task ─────────────────────────────────────────────────────────── */
+.add-task {
+  display: flex;
+  gap: 8px;
+  padding: 0 0 16px;
+}
+
+.add-task-input {
+  flex: 1;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-size: 15px;
+  font-family: inherit;
+  background: var(--card);
+  color: var(--text);
+  transition: border-color 0.15s;
+}
+
+.add-task-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.add-task-input::placeholder {
+  color: #bbb;
+}
+
+/* ── Toolbar ──────────────────────────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 12px;
+}
+
+.task-count {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+/* ── Task List ────────────────────────────────────────────────────────── */
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+  transition: all 0.15s;
+}
+
+.task-item.completed {
+  opacity: 0.6;
+}
+
+/* Custom checkbox */
+.checkbox {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  background: var(--card);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #fff;
+  transition: all 0.15s;
+}
+
+.checkbox:hover {
+  border-color: var(--primary);
+}
+
+.checkbox.checked {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.task-title {
+  flex: 1;
+  font-size: 15px;
+  word-break: break-word;
+}
+
+.task-item.completed .task-title {
+  color: var(--text-dim);
+}
+
+.task-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+/* ── Section Divider ──────────────────────────────────────────────────── */
+.section-divider {
+  display: flex;
+  align-items: center;
+  padding: 16px 0 4px;
+  font-size: 12px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+  margin-left: 12px;
+}
+
+/* ── Empty State ──────────────────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 48px 16px;
+  color: var(--text-dim);
+}
+
+.empty-state p {
+  font-size: 16px;
+}
+
+.empty-state .hint {
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+/* ── Error Banner ─────────────────────────────────────────────────────── */
+.error-banner {
+  background: #fef0f0;
+  border: 1px solid #f5c6c6;
+  color: var(--danger);
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+/* ── Loading ──────────────────────────────────────────────────────────── */
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-dim);
+  font-size: 14px;
+}
+
+/* ── Modal ────────────────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+}
+
+.modal {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 520px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.modal-body {
+  padding: 16px 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+}
+
+.modal-section {
+  margin-bottom: 20px;
+}
+
+.modal-section:last-child {
+  margin-bottom: 0;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ── Copy Task List ───────────────────────────────────────────────────── */
+.copy-task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.copy-task-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.1s;
+}
+
+.copy-task-item:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.copy-task-item input[type='checkbox'] {
+  accent-color: var(--primary);
+  width: 16px;
+  height: 16px;
+}
+
+/* ── Date Chips ───────────────────────────────────────────────────────── */
+.date-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--card);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+  color: var(--text);
+}
+
+.chip:hover {
+  border-color: var(--primary);
+}
+
+.chip.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.chip.active button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 2px;
+  padding: 0;
+  line-height: 1;
+}
+
+/* ── Custom Date Row ──────────────────────────────────────────────────── */
+.custom-date-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.selected-dates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .app-header h1 {
+    font-size: 22px;
+  }
+
+  .add-task {
+    flex-direction: column;
+  }
+
+  .add-task .btn {
+    width: 100%;
+  }
+
+  .task-item {
+    padding: 12px;
+    gap: 8px;
+  }
+}
